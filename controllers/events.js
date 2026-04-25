@@ -20,5 +20,40 @@ router.get('/', async (req, res) => {
     }
 });
 
+router.get('/:eventId', async (req, res) => {
+    try {
+        const foundEvent = await Event.findById(req.params.eventId);
+        if (!foundEvent) {
+            res.status(404);
+            throw new Error('Event not found.');
+        }
+        res.status(200).json(foundEvent);
+    } catch (error) {
+        if (res.statusCode === 404) {
+            res.json({error: error.message})
+        } else {
+            res.status(500).json({error:error.message});
+        }
+    } 
+});
+
+
+router.delete('/:eventId', async (req, res) => {
+   try {
+    const deleteEvent = await Event.findByIdAndDelete(req.params.eventId);
+    if (!deletedEvent) {
+        res.status(404);
+        throw new Error('Event not found.');
+    }
+    res.status(200).json(foundEvent);
+   } catch (error) {
+    if (res.statusCode === 404) {
+        res.json({error: error.message})
+    } else {
+        res.status(500).json({error:error.message})
+    }
+   }
+}); 
+
 
 module.exports = router;

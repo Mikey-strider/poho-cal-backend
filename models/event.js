@@ -5,13 +5,22 @@ const eventSchema = mongoose.Schema({
         type: String,
         required: true,
     },
+    producer: {
+        type: String,
+        required: true,
+    },
+    date: {
+        type: String,
+        required: true,
+    },
     eventTime: {
         type: Number,
-        date: Number,
-        time: Number,
+        required: true,
     },
-
-})
+    poster: {
+        type: String,
+    },
+});
 
 const Event = mongoose.model('Event', eventSchema);
 
