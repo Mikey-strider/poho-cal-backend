@@ -55,5 +55,22 @@ router.delete('/:eventId', async (req, res) => {
    }
 }); 
 
+router.put('/:eventId', async (req, res) => {
+    try {
+        const updatedEvent = await Event.findByIdAndUpdate(req.params.eventId, req.body);
+        if (!updatedEvent) {
+            res.status(404);
+            throw new Error('Event not found.')
+        }
+        res.status(200).json(updatedEvent);
+    } catch (error) {
+        if (res.statusCode === 404) {
+            res.json({ error: error.message });
+        } else {
+            res.status(500).json({ error: error.message });
+        }
+    }
+});
+
 
 module.exports = router;
